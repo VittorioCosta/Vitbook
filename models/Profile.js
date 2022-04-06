@@ -29,9 +29,31 @@ const ProfileSchema = new mongoose.Schema({
     description: {
         type: String
     },
-    experiences: [
+    experience: [
         {
           band: {
+            type: String,
+            required: true
+          },
+          from: {
+            type: Date,
+            required: true
+          },
+          to: {
+            type: Date
+          },
+          current: {
+            type: Boolean,
+            default: false
+          },
+          description: {
+            type: String
+          }
+        }
+      ],
+      education: [
+        {
+          course: {
             type: String,
             required: true
           },
