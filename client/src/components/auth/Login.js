@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 
-function Register() {
+function Login() {
 
     const initialValues = {
         email:'',
@@ -62,4 +62,4 @@ function Register() {
   )
 }
 
-export default Register
+export default Login

@@ -1,25 +1,35 @@
+/* eslint-disable */
 import React, { useState } from 'react'
+import { connect } from 'react-redux' // it needs to be exported
 import { Link } from 'react-router-dom'
+import { setAlert } from '../../actions/alert'
+import PropTypes from 'prop-types'
 
 
-function Register() {
+// function Register(props) {  // props aggiunto con lo stato
 
-    const initialValues = {
-        name:'',
-        email:'',
-        password:'',
-        password2:''
+function Register({setAlert}) {   // destructuring of props
+  
+
+  const [values, setValues] = useState({
+    name:'',
+    email:'',
+    password:'',
+    password2:''
+  })
+
+  const { name, email ,password, password2 } = values
+
+  const onChange = e=> setValues({...values, [e.target.name]: e.target.value})
+
+  const onSubmit = async e=> {
+    e.preventDefault()
+    if(password !== password2) {
+      setAlert('passwords do not match', 'danger')
     }
+    console.log(values, 'SUCCESS')
 
-    const [values, setValues] = useState(initialValues)
-
-    const onChange = e=> setValues({...values, [e.target.name]: e.target.value})
-
-    const onSubmit = async e=> {
-        e.preventDefault()
-        console.log(values, 'SUCCESS')
-
-    }
+  }
 
   return (
 
@@ -33,7 +43,7 @@ function Register() {
             type="text" 
             placeholder="Name" 
             name="name"
-            value={values.name}
+            value={name}
             onChange={onChange}
             required 
           />
@@ -44,7 +54,7 @@ function Register() {
             type="email" 
             placeholder="Email Address" 
             name="email" 
-            value={values.email}
+            value={email}
             onChange={onChange}
             required
         />
@@ -61,7 +71,7 @@ function Register() {
             placeholder="Password"
             name="password"
             minLength="6"
-            value={values.password}
+            value={password}
             onChange={onChange}
           />
         </div>
@@ -72,14 +82,14 @@ function Register() {
             placeholder="Confirm Password"
             name="password2"
             minLength="6"
-            value={values.password2}
+            value={password2}
             onChange={onChange}
           />
         </div>
 
         <button 
-            type="submit" 
-            className="btn btn-primary" 
+          type="submit" 
+          className="btn btn-primary" 
         >Register</button>
 
       </form>
@@ -90,4 +100,12 @@ function Register() {
   )
 }
 
-export default Register
+Register.PropTypes = {
+  setAlert: PropTypes.func.isRequired
+}
+
+
+export default connect(
+  null, 
+  { setAlert }
+) (Register) 
