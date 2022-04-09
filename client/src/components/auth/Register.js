@@ -3,12 +3,13 @@ import React, { useState } from 'react'
 import { connect } from 'react-redux' // it needs to be exported
 import { Link } from 'react-router-dom'
 import { setAlert } from '../../actions/alert'
+import { register } from '../../actions/auth'
 import PropTypes from 'prop-types'
 
 
 // function Register(props) {  // props aggiunto con lo stato
 
-function Register({setAlert}) {   // destructuring of props
+function Register({ setAlert, register }) {   // destructuring of props
   
 
   const [values, setValues] = useState({
@@ -23,11 +24,15 @@ function Register({setAlert}) {   // destructuring of props
   const onChange = e=> setValues({...values, [e.target.name]: e.target.value})
 
   const onSubmit = async e=> {
+
     e.preventDefault()
+    
     if(password !== password2) {
       setAlert('passwords do not match', 'danger')
+    }else {
+      register({ name, email, password })
     }
-    console.log(values, 'SUCCESS')
+    
 
   }
 
@@ -45,7 +50,7 @@ function Register({setAlert}) {   // destructuring of props
             name="name"
             value={name}
             onChange={onChange}
-            required 
+            //required 
           />
         </div>
 
@@ -56,7 +61,7 @@ function Register({setAlert}) {   // destructuring of props
             name="email" 
             value={email}
             onChange={onChange}
-            required
+            //required
         />
 
           <small className="form-text"
@@ -70,7 +75,7 @@ function Register({setAlert}) {   // destructuring of props
             type="password"
             placeholder="Password"
             name="password"
-            minLength="6"
+            //minLength="6"
             value={password}
             onChange={onChange}
           />
@@ -81,7 +86,7 @@ function Register({setAlert}) {   // destructuring of props
             type="password"
             placeholder="Confirm Password"
             name="password2"
-            minLength="6"
+            //minLength="6"
             value={password2}
             onChange={onChange}
           />
@@ -101,11 +106,12 @@ function Register({setAlert}) {   // destructuring of props
 }
 
 Register.PropTypes = {
-  setAlert: PropTypes.func.isRequired
+  setAlert: PropTypes.func.isRequired,
+  register: PropTypes.func.isRequired
 }
 
 
 export default connect(
   null, 
-  { setAlert }
+  { setAlert, register }
 ) (Register) 

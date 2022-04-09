@@ -1,5 +1,6 @@
 /* Global Styles */
 /* BACKGROUND AT 336 ROW */
+/* NEW 500 600 */
 :root {
   --primary-color: #1fb622;
   --dark-color: #343a40;
@@ -156,6 +157,7 @@ img {
   background: var(--light-color);
   color: #333;
 }
+
 
 .btn-primary,
 .bg-primary,
@@ -495,6 +497,14 @@ button {
   margin-bottom: 0.5rem;
 }
 
+/* NEW */
+
+.alert-wrapper {
+  position:static;
+  width: 100%;
+  margin-top: 4rem;
+}
+
 /* Mobile Styles */
 @media (max-width: 700px) {
   .container {
@@ -585,4 +595,11 @@ button {
   .post button {
     padding: 0.3rem 0.4rem;
   }
+  
+  
+  /* NEW */
+  .alert-wrapper {
+    margin-top: 6.5rem;
+  }
+  
 }
