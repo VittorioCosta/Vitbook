@@ -1,7 +1,7 @@
 /* eslint-disable */
 import React, { useState } from 'react'
 import { connect } from 'react-redux' // it needs to be exported
-import { Link } from 'react-router-dom'
+import { Link, Navigate } from 'react-router-dom'
 import { setAlert } from '../../actions/alert'
 import { register } from '../../actions/auth'
 import PropTypes from 'prop-types'
@@ -9,7 +9,7 @@ import PropTypes from 'prop-types'
 
 // function Register(props) {  // props aggiunto con lo stato
 
-function Register({ setAlert, register }) {   // destructuring of props
+function Register({ setAlert, register, isAuthenticated }) {   // destructuring of props
   
 
   const [values, setValues] = useState({
@@ -32,8 +32,10 @@ function Register({ setAlert, register }) {   // destructuring of props
     }else {
       register({ name, email, password })
     }
-    
+  }
 
+  if (isAuthenticated) {
+    return <Navigate to="/dashboard" />;
   }
 
   return (
@@ -107,11 +109,16 @@ function Register({ setAlert, register }) {   // destructuring of props
 
 Register.PropTypes = {
   setAlert: PropTypes.func.isRequired,
-  register: PropTypes.func.isRequired
+  register: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool
 }
+
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated
+});
 
 
 export default connect(
-  null, 
+  mapStateToProps, 
   { setAlert, register }
 ) (Register) 

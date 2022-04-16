@@ -1,23 +1,31 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, Navigate } from 'react-router-dom'
+import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
+import { login } from '../../actions/auth'
 
 
-function Login() {
+function Login({ login, isAuthenticated }) {
 
-    const initialValues = {
-        email:'',
-        password:''
-    }
+    
+  const [values, setValues] = useState({
+    email:'',
+    password:''
+  })
 
-    const [values, setValues] = useState(initialValues)
+  const { email, password } = values
 
-    const onChange = e=> setValues({...values, [e.target.name]: e.target.value})
+  const onChange = e=> setValues({...values, [e.target.name]: e.target.value})
 
-    const onSubmit = async e=> {
-        e.preventDefault()
-        console.log(values, 'SUCCESS')
+  const onSubmit = async e=> {
+    e.preventDefault()
+    login(email, password)  
 
-    }
+  }
+
+  if (isAuthenticated) {
+    return <Navigate to="/dashboard" />;
+  }
 
   return (
 
@@ -62,4 +70,17 @@ function Login() {
   )
 }
 
-export default Login
+Login.propTypes = {
+  login: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool
+  
+};
+
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated
+});
+
+export default connect(
+  mapStateToProps, 
+  { login }
+)(Login);
