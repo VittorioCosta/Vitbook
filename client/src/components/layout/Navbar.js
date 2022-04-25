@@ -11,6 +11,12 @@ function Navbar({ auth: { isAuthenticated }, logout }) {
 
     <ul>
       <li>
+        <Link to="/dashboard">
+        <i className='fas fa-user'></i>{' '}
+        <span className='hide-dash-sm'>Dashboard</span>
+        </Link>
+      </li>
+      <li>
         <Link onClick={logout} to="#!">
           <i className='fas fa-sign-out-alt'></i>{' '}
           <span className='hide-dash-sm'>Logout</span>

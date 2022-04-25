@@ -4,6 +4,7 @@ const { check, validationResult } = require('express-validator/check')
 
 const User = require('../models/User')
 const Profile = require('../models/Profile')
+const Post = require('../../models/Post')
 
 // @route   GET api/profile/me
 // @desc    Get current profile
@@ -85,12 +86,8 @@ router.post(
         }
         if(location){profileFields.location = location}
         if(status){profileFields.status = status}
-        if(skills){
-            profileFields.skills = skills.split(',').map(skills=>skills.trim())
-        }
-        if(genre){
-            profileFields.genre = genre.split(',').map(genre=>genre.trim())
-        }
+        if(skills){profileFields.skills = skills}
+        if(genre){profileFields.genre = genre}
         if(description){profileFields.description = description}
         
         // Build social object
@@ -180,8 +177,8 @@ router.get('/user/:user_id', async (req,res)=> {
 
 router.delete('/', auth, async (req,res)=> {
     try {
-        // TODO remove users posts
-
+        // Remove users posts
+        Post.deleteMany({ user: req.user.id }),
         // Remove Profile
         await Profile.deleteOne({ user: req.user.id })
         // Remove User

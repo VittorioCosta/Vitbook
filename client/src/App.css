@@ -4,7 +4,7 @@
 :root {
   --primary-color: #1fb622;
   --dark-color: #343a40;
-  --light-color: #eeeeee;
+  --light-color: rgb(223, 215, 215);
   --danger-color: #dc3545;
   --success-color: #28a745;
 }
@@ -245,7 +245,7 @@ img {
 .form .form-text {
   display: block;
   margin-top: 0.3rem;
-  color: #aaa;
+  color: #060606;
 }
 
 .form input[type='text'],

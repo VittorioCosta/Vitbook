@@ -11,7 +11,14 @@ import Landing from './components/layout/Landing';
 import Login from './components/auth/Login';
 import Register from './components/auth/Register';
 import Alert from './components/layout/Alert';
+import Dashboard from './components/dashboard/Dashboard';
+import CreateProfile from './components/profile-form/CreateProfile';
+import EditProfile from './components/profile-form/EditProfile';
+import AddExperience from './components/profile-form/AddExperience';
+import AddEducation from './components/profile-form/AddEducation'
+import PrivateRoute from './components/routing/PrivateRoute';
 import './App.css';
+import { LOGOUT } from './actions/types';
 
 // REDUX
 import { Provider } from 'react-redux'; // collega react con redux
@@ -26,7 +33,6 @@ const  App = ()=> {
 
   useEffect(()=> {
 
-    console.log(localStorage.token);
     
     if(localStorage.token) {
       setAuthToken(localStorage.token)
@@ -34,8 +40,11 @@ const  App = ()=> {
     }
 
     store.dispatch(loadUser())
-    
 
+    // log user out from all tabs if they log out in one tab
+    window.addEventListener('storage', () => {
+      if (!localStorage.token) store.dispatch({ type: LOGOUT })
+    })
   }, [])
 
   return(
@@ -48,7 +57,26 @@ const  App = ()=> {
           <Route exact path="/" element={<Landing />} />
           <Route path='/register' element={<Register />} />
           <Route path='/login' element={<Login />} />
-            
+          <Route
+            path='/dashboard' 
+            element={<PrivateRoute component={Dashboard} />}
+          />
+          <Route
+            path='/create-profile' 
+            element={<PrivateRoute component={CreateProfile} />}
+          />
+          <Route
+            path='/edit-profile'
+            element={<PrivateRoute component={EditProfile} />}
+          />
+          <Route
+            path="add-experience"
+            element={<PrivateRoute component={AddExperience} />}
+          />
+          <Route
+            path="add-education"
+            element={<PrivateRoute component={AddEducation} />}
+          />
           
         </Switch>
       </Router>
