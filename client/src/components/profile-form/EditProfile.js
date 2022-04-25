@@ -140,7 +140,7 @@ const EditProfile = ({
                 onChange={onChange}
             />
             <small className="form-text">
-                Please use comma separated values (eg. motivation, determination, perseverance)
+            Please use comma separated values (eg. motivation, determination, perseverance)
             </small>
         </div>
 

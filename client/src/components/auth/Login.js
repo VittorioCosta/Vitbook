@@ -3,6 +3,7 @@ import { Link, Navigate } from 'react-router-dom'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { login } from '../../actions/auth'
+import { loadUser } from '../../actions/auth'
 
 
 function Login({ login, isAuthenticated }) {
@@ -20,7 +21,7 @@ function Login({ login, isAuthenticated }) {
   const onSubmit = async e=> {
     e.preventDefault()
     login(email, password)  
-
+    loadUser()
   }
 
   if (isAuthenticated) {

@@ -107,7 +107,7 @@ function Register({ setAlert, register, isAuthenticated }) {   // destructuring 
   )
 }
 
-Register.PropTypes = {
+Register.propTypes = {
   setAlert: PropTypes.func.isRequired,
   register: PropTypes.func.isRequired,
   isAuthenticated: PropTypes.bool

@@ -16,6 +16,8 @@ import CreateProfile from './components/profile-form/CreateProfile';
 import EditProfile from './components/profile-form/EditProfile';
 import AddExperience from './components/profile-form/AddExperience';
 import AddEducation from './components/profile-form/AddEducation'
+import Profiles from './components/profiles/Profiles';
+import Profile from './components/profile/Profile';
 import PrivateRoute from './components/routing/PrivateRoute';
 import './App.css';
 import { LOGOUT } from './actions/types';
@@ -41,7 +43,7 @@ const  App = ()=> {
 
     store.dispatch(loadUser())
 
-    // log user out from all tabs if they log out in one tab
+    // logout the user da tutte le tab
     window.addEventListener('storage', () => {
       if (!localStorage.token) store.dispatch({ type: LOGOUT })
     })
@@ -57,6 +59,9 @@ const  App = ()=> {
           <Route exact path="/" element={<Landing />} />
           <Route path='/register' element={<Register />} />
           <Route path='/login' element={<Login />} />
+          <Route path='/profiles' element={<Profiles />} />
+          <Route path="profile/:id" element={<Profile />} />
+
           <Route
             path='/dashboard' 
             element={<PrivateRoute component={Dashboard} />}

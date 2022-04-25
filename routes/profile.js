@@ -89,13 +89,26 @@ router.post(
         if(skills){profileFields.skills = skills}
         if(genre){profileFields.genre = genre}
         if(description){profileFields.description = description}
+        if(facebook){profileFields.facebook = facebook}
+        if(instagram){profileFields.instagram = instagram}
         
-        // Build social object
+        /* // Build social object
         profileFields.social = {}
         if(youtube){profileFields.youtube = youtube}
         if(twitter){profileFields.twitter = twitter}
         if(facebook){profileFields.facebook = facebook}
-        if(instagram){profileFields.instagram = instagram}
+        if(instagram){profileFields.instagram = instagram} */
+
+        // Build socialFields object
+        const socialFields = { twitter, facebook };
+
+        // normalize social fields to ensure valid url
+        for (const [key, value] of Object.entries(socialFields)) {
+        if (value && value.length > 0)
+            socialFields[key] = normalize(value, { forceHttps: true });
+        }
+        // add to profileFields
+        profileFields.social = socialFields;
         
         // Update data
         try {

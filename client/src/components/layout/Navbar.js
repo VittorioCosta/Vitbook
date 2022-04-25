@@ -11,6 +11,12 @@ function Navbar({ auth: { isAuthenticated }, logout }) {
 
     <ul>
       <li>
+        <Link to="/profiles">
+        <i className='fas fa-headphones' />
+        <span> </span>Musicians
+        </Link>
+      </li>
+      <li>
         <Link to="/dashboard">
         <i className='fas fa-user'></i>{' '}
         <span className='hide-dash-sm'>Dashboard</span>
@@ -29,7 +35,7 @@ function Navbar({ auth: { isAuthenticated }, logout }) {
   const guestLinks = (
 
     <ul>
-      <li><Link to="/profile">Musicians</Link></li>
+      <li><Link to="/profiles">Musicians</Link></li>
       <li><Link to="/register">Register</Link></li>
       <li><Link to="/login">Login</Link></li>
     </ul>
