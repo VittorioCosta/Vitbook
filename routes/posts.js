@@ -1,10 +1,10 @@
 const router = require('express').Router()
 const auth = require('../middleware/auth')
-const { check, validationResult } = require('express-validator/check')
+const { check, validationResult } = require('express-validator')
 
 const User = require('../models/User')
 const Post = require('../models/Post')
-const { route } = require('moongose/routes')
+// const { route } = require('moongose/routes')
 
 // @route   POST api/posts
 // @desc    Create a Post
@@ -34,7 +34,8 @@ router.post(
                 text: req.body.text,
                 name: user.name,
                 avatar: user.avatar,
-                user: req.user.id  // from the middlware
+                user: req.user.id,  // from the middlware
+                date: user.date
             })
 
             const post = await newPost.save()
@@ -173,6 +174,7 @@ router.put('/unlike/:id', auth, async(req, res)=>{
 // @access  Private
 
 router.post(
+    
     '/comment/:id', // ID del post ovviamente
     [
         [auth], 
@@ -183,6 +185,8 @@ router.post(
         ]
     ], 
     async (req, res)=> {
+
+        console.log('works')
 
         const errors = validationResult(req)
         if(!errors.isEmpty()) {
@@ -197,9 +201,10 @@ router.post(
                 text: req.body.text,
                 name: user.name,
                 avatar: user.avatar,
-                user: req.user.id  // from the middlware
+                user: req.user.id   // from the middlware
+                
             }
-
+            console.log(newComment);
             post.comments.unshift(newComment)
 
             await post.save()

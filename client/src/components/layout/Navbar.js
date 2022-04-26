@@ -17,6 +17,12 @@ function Navbar({ auth: { isAuthenticated }, logout }) {
         </Link>
       </li>
       <li>
+        <Link to="/posts">
+        <i className='far fa-comments' />
+        <span> </span>Posts
+        </Link>
+      </li>
+      <li>
         <Link to="/dashboard">
         <i className='fas fa-user'></i>{' '}
         <span className='hide-dash-sm'>Dashboard</span>

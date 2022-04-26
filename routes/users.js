@@ -2,7 +2,7 @@ const router = require('express').Router()
 const gravatar = require('gravatar')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
-const { check, validationResult } = require('express-validator/check')
+const { check, validationResult } = require('express-validator')
 
 
 // To make DB query
